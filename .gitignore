@@ -21,6 +21,8 @@ coverage/
 .idea/
 *.swp
 *.swo
+*.trae
+*.kiro
 *~
 .eslintcache
 .pnp.*
