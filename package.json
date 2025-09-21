@@ -38,12 +38,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eleso/selenium-mcp-server.git"
+    "url": "https://github.com/DagiiM/selenium-mcp-server.git"
   },
   "bugs": {
-    "url": "https://github.com/eleso/selenium-mcp-server/issues"
+    "url": "https://github.com/DagiiM/selenium-mcp-server/issues"
   },
-  "homepage": "https://github.com/eleso/selenium-mcp-server#readme",
+  "homepage": "https://github.com/DagiiM/selenium-mcp-server#readme",
   "engines": {
     "node": ">=18.0.0"
   },

@@ -166,28 +166,96 @@ Refer to src/server.ts for the authoritative schemas and behavior.
 
 ## Configuration
 
+### Installation Methods
+
+The Selenium MCP Server can be installed and configured in multiple ways depending on your editor and workflow preferences:
+
+#### **Method 1: Direct GitHub Installation**
+```bash
+# Clone and install from GitHub
+git clone https://github.com/DagiiM/selenium-mcp-server.git
+cd selenium-mcp-server
+npm install
+npm start
+```
+
+#### **Method 2: NPM Package (when published)**
+```bash
+# Install from npm registry
+npm install -g @eleso/selenium-mcp-server
+selenium-mcp-server
+```
+
+#### **Method 3: NPX Direct from GitHub**
+```bash
+# Run directly from GitHub without local installation
+npx git+https://github.com/DagiiM/selenium-mcp-server.git
+```
+
 ### VSCode & MCP Configuration
 
-For optimal development experience and to leverage the full capabilities of the Selenium MCP Server, it's recommended to configure your VSCode environment and MCP client as follows:
+For optimal development experience and to leverage the full capabilities of the Selenium MCP Server, configure your VSCode environment as follows:
 
-1.  **VSCode Extensions:**
-    *   **MCP Extension:** Install the official MCP VSCode extension for seamless interaction with the MCP server.
-    *   **TypeScript and ESLint Extensions:** Ensure you have the latest TypeScript and ESLint extensions for code highlighting, linting, and type checking.
+#### **Option A: GitHub-based Configuration (Recommended)**
+Add to your VSCode MCP settings or `.vscode/settings.json`:
 
-2.  **MCP Client Setup:**
-    *   Your MCP client (e.g., an IDE integration or AI assistant) should be configured to communicate with the Selenium MCP Server via `stdio`.
-    *   Ensure the client is set up to pass tool calls and receive results according to the MCP specification.
+```json
+{
+  "mcp.servers": {
+    "selenium-mcp-server": {
+      "command": "npx",
+      "args": ["git+https://github.com/DagiiM/selenium-mcp-server.git"],
+      "env": {},
+      "autoStart": true
+    }
+  }
+}
+```
 
-3.  **Recommended VSCode Settings (settings.json):**
+#### **Option B: Local Installation Configuration**
+If you've cloned the repository locally:
 
+```json
+{
+  "mcp.servers": {
+    "selenium-mcp-server": {
+      "command": "npm",
+      "args": ["start"],
+      "cwd": "./selenium-mcp-server",
+      "env": {},
+      "autoStart": true
+    }
+  }
+}
+```
+
+#### **Option C: NPM Package Configuration**
+When installed via npm:
+
+```json
+{
+  "mcp.servers": {
+    "selenium-mcp-server": {
+      "command": "npx",
+      "args": ["@eleso/selenium-mcp-server"],
+      "env": {},
+      "autoStart": true
+    }
+  }
+}
+```
+
+#### **VSCode Extensions & Settings**
+1.  **Required Extensions:**
+    *   **MCP Extension:** Install the official MCP VSCode extension for seamless interaction
+    *   **TypeScript and ESLint Extensions:** For code highlighting, linting, and type checking
+
+2.  **Recommended VSCode Settings (settings.json):**
     ```json
     {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "eslint.validate": [
-            "javascript",
-            "typescript"
-        ],
+        "eslint.validate": ["javascript", "typescript"],
         "typescript.tsdk": "node_modules/typescript/lib",
         "[typescript]": {
             "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -200,23 +268,96 @@ For optimal development experience and to leverage the full capabilities of the 
 
 ### Trae Configuration
 
-To integrate the Selenium MCP Server with Trae, add the following to your Trae configuration file (e.g., `.trae/config.json` or similar):
+To integrate the Selenium MCP Server with Trae, choose one of the following configurations:
+
+#### **Option A: GitHub Direct Installation (Recommended)**
+Add to your Trae configuration file (`.trae/config.json`):
+
+```json
+{
+  "mcpServers": {
+    "SeleniumMCP": {
+      "command": "npx",
+      "args": ["git+https://github.com/DagiiM/selenium-mcp-server.git"],
+      "env": {},
+      "autoInstall": true,
+      "autoStart": true
+    }
+  }
+}
+```
+
+#### **Option B: Local Repository Configuration**
+For local development or when you've cloned the repository:
 
 ```json
 {
   "mcpServers": {
     "SeleniumMCP": {
       "command": "npm",
-      "args": [
-        "start"
-      ],
-      "env": {}
+      "args": ["start"],
+      "cwd": "./selenium-mcp-server",
+      "env": {},
+      "autoStart": true
     }
   }
 }
 ```
 
-This configuration tells Trae to start the Selenium MCP Server using `npm start` and makes it available as "SeleniumMCP" within your Trae environment.
+#### **Option C: NPM Package Configuration**
+When using the published npm package:
+
+```json
+{
+  "mcpServers": {
+    "SeleniumMCP": {
+      "command": "npx",
+      "args": ["@eleso/selenium-mcp-server"],
+      "env": {},
+      "autoInstall": true,
+      "autoStart": true
+    }
+  }
+}
+```
+
+### Advanced Configuration Options
+
+#### **Custom Environment Variables**
+```json
+{
+  "mcpServers": {
+    "SeleniumMCP": {
+      "command": "npx",
+      "args": ["git+https://github.com/DagiiM/selenium-mcp-server.git"],
+      "env": {
+        "ANALYSIS_REPORT_DIR": "./custom-reports",
+        "ANALYSIS_SCREENSHOT_DIR": "./custom-screenshots",
+        "TEST_BASE_URL": "http://localhost:3000"
+      },
+      "autoStart": true
+    }
+  }
+}
+```
+
+#### **Browser-Specific Configuration**
+```json
+{
+  "mcpServers": {
+    "SeleniumMCP": {
+      "command": "npx",
+      "args": ["git+https://github.com/DagiiM/selenium-mcp-server.git"],
+      "env": {
+        "DEFAULT_BROWSER": "chrome",
+        "HEADLESS_MODE": "true",
+        "ENABLE_MONITORING": "true"
+      },
+      "autoStart": true
+    }
+  }
+}
+```
 
 ### Environment variables (selected)
 - TEST_BASE_URL: Centralized base URL for tests (default: https://example.com). Overrides integration tests’ target URL.
